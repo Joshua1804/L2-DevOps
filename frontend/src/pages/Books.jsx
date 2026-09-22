@@ -29,11 +29,11 @@ const Books = () => {
 
         try {
 
-            setError("");
-
             const data = await getBooks();
 
             setBooks(data);
+
+            setError("");
 
         } catch (error) {
 
@@ -44,7 +44,14 @@ const Books = () => {
 
     useEffect(() => {
 
-        loadBooks();
+        getBooks()
+            .then((data) => {
+                setBooks(data);
+                setError("");
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
 
     }, []);
 
